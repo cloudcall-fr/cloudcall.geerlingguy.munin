@@ -1,0 +1,7 @@
+<Directory /var/cache/munin/www>
+    Require valid-user
+    Options None
+    AuthUserFile /etc/munin/munin-htpasswd
+    AuthName "Munin"
+    AuthType Basic
+</Directory>

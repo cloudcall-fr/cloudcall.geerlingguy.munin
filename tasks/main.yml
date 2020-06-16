@@ -37,3 +37,15 @@
     state: "{{ munin_cron_job }}"
     regexp: "^\\*/5 \\* \\* \\* \\*"
     line: "*/5 * * * *     munin if [ -x /usr/bin/munin-cron ]; then /usr/bin/munin-cron; fi"
+
+- name: Install munin-auth config
+  template:
+    src: zzz-munin-auth.conf.j2
+    dest: /etc/apache2/conf-available/zzz-munin-auth.conf
+  notify: Restart apache
+
+- name: Enable munin-auth config
+  command: /usr/sbin/a2enconf {{ item }}
+  with_items: 
+    - zzz-munin-auth
+  changed_when: False
